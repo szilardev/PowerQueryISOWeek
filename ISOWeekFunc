@@ -1,0 +1,39 @@
+/** 
+ * Calculate ISOWeek from date or datetime
+ * @param {date|datetime} DateOrDateTime
+ * @returns {number} Calculated ISOWeek number
+ */
+
+let
+    ISOWeekNum = (DateOrDateTime as any) as nullable number => 
+    let 
+    TargetDate = try Date.From(DateOrDateTime) otherwise null,
+    Result = if TargetDate = null then null else
+        let
+            //https://en.wikipedia.org/wiki/ISO_week_date#Calculating_the_week_number_from_an_ordinal_date
+            y = Date.Year(TargetDate),
+            doy = Date.DayOfYear(TargetDate),
+            dow = Date.DayOfWeek(TargetDate, Day.Monday) + 1, 
+            w = Number.RoundDown((10 + doy - dow) / 7),
+
+            GetWeeksInYear = (year as number) as number =>
+                let
+                    // December 28th always falls in the last ISO week of the year.
+                    d28 = #date(year, 12, 28),
+                    d28_doy = Date.DayOfYear(d28),
+                    d28_dow = Date.DayOfWeek(d28, Day.Monday) + 1
+                in
+                    Number.RoundDown((10 + d28_doy - d28_dow) / 7),
+            woy = 
+                if w < 1 then 
+                    GetWeeksInYear(y - 1)
+                else if w > GetWeeksInYear(y) then 
+                    1
+                else 
+                    w
+        in
+            woy
+    in
+        Result
+in
+    ISOWeekNum
