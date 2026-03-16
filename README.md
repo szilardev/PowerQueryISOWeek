@@ -15,6 +15,8 @@ Where:
 * `dow` $\in [1, 7]$ (Monday = 1, Sunday = 7)
 * `weeks(year)` returns the total number of ISO weeks in a given year (either 52 or 53).
 
+Source: https://en.wikipedia.org/wiki/ISO_week_date#Calculating_the_week_number_from_an_ordinal_date
+
 ## How to Use (Installation)
 
 1. Open the **Power Query Editor** in Power BI or Excel.
